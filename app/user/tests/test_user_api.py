@@ -16,7 +16,6 @@ def create_user(**params):
 
 class PublicUserAPITests(TestCase):
   """Tests the public features of the user API."""
-
   def setUp(self):
     self.client = APIClient()
 
@@ -27,7 +26,7 @@ class PublicUserAPITests(TestCase):
       'password': 'testpass123',
       'name': 'Test Name'
     }
-    res = self.test_create_user_success(CREATE_USER_URL, payload)
+    res = self.client.post(CREATE_USER_URL, payload)
 
     self.assertEqual(res.status_code, status.HTTP_201_CREATED)
     user = get_user_model().objects.get(email=payload['email'])
